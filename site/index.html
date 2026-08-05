@@ -210,6 +210,42 @@
         </div>
       </section>
 
+      <h2>Current Delivery Status</h2>
+      <section class="section">
+        <div class="item">
+          <div><span class="status done">Done</span>Repository</div>
+          <div>
+            Application source has been moved into an HMCTS-owned repository with pull request checks for build,
+            tests and deployment-template rendering.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Images</div>
+          <div>
+            Frontend and backend container images have been built for the target Linux platform and published for test deployment.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Deployment</div>
+          <div>
+            Dedicated deployment namespace and automated deployment pipeline path are in place for initial cluster testing.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Hardening</div>
+          <div>
+            Container security context issues found during first deployment testing have been fixed, including non-root execution.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Next</span>Smoke Test</div>
+          <div>
+            Rerun the deployment with the corrected image tag, confirm frontend and backend pods become ready,
+            then validate health checks, login, broker connectivity, database connectivity and core DLQ flows.
+          </div>
+        </div>
+      </section>
+
       <h2>Implemented Or Scaffolded</h2>
       <section class="section">
         <div class="item">
@@ -294,15 +330,15 @@
         <div class="item">
           <div><span class="status todo">Todo</span>Deployment</div>
           <div>
-            Build and publish production container images, align deployment templates to the approved platform pattern,
+            Promote the image publishing route into the approved CI/CD process, align deployment templates to the approved platform pattern,
             configure managed secrets, and deploy to each target cluster.
           </div>
         </div>
         <div class="item">
           <div><span class="status todo">Todo</span>Validation</div>
           <div>
-            Complete identity login tests, deployed-cluster broker compatibility tests, large payload tests,
-            large DLQ import tests, SQL pagination tests and live/non-live separation tests.
+            Complete identity login tests, deployed-cluster health checks, broker connectivity tests, database connectivity tests,
+            broker compatibility tests, large payload tests, large DLQ import tests, SQL pagination tests and live/non-live separation tests.
           </div>
         </div>
         <div class="item">
