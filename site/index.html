@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DLQ Console Delivery Checklist</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f6f7f9;
+        --ink: #1d2630;
+        --muted: #5d6673;
+        --line: #d9dee6;
+        --panel: #ffffff;
+        --done: #16794c;
+        --todo: #a15c00;
+        --risk: #9b1c31;
+        --accent: #365f91;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font: 16px/1.55 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: var(--ink);
+        background: var(--bg);
+      }
+
+      main {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 40px 24px 64px;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+        margin-bottom: 28px;
+        padding-bottom: 20px;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4vw, 3.2rem);
+        line-height: 1.05;
+        margin: 0 0 12px;
+      }
+
+      h2 {
+        margin: 34px 0 12px;
+        font-size: 1.45rem;
+      }
+
+      h3 {
+        margin: 0 0 12px;
+        font-size: 1.05rem;
+      }
+
+      p {
+        margin: 0 0 14px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 1.25rem;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .lead {
+        max-width: 860px;
+        color: var(--muted);
+        font-size: 1.1rem;
+      }
+
+      .notice {
+        background: #fff8e6;
+        border: 1px solid #ead7a2;
+        border-radius: 8px;
+        margin: 22px 0;
+        padding: 16px;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+
+      .status {
+        display: inline-block;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        margin-right: 8px;
+        padding: 2px 8px;
+        text-transform: uppercase;
+      }
+
+      .done {
+        background: #e8f5ee;
+        color: var(--done);
+      }
+
+      .todo {
+        background: #fff0d8;
+        color: var(--todo);
+      }
+
+      .risk {
+        background: #fde8ec;
+        color: var(--risk);
+      }
+
+      .section {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        margin: 16px 0;
+        padding: 18px;
+      }
+
+      .item {
+        align-items: flex-start;
+        border-top: 1px solid var(--line);
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 160px 1fr;
+        padding: 11px 0;
+      }
+
+      .item:first-of-type {
+        border-top: 0;
+      }
+
+      .meta {
+        color: var(--muted);
+      }
+
+      .summary-list {
+        columns: 2;
+      }
+
+      footer {
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        margin-top: 34px;
+        padding-top: 20px;
+      }
+
+      @media (max-width: 720px) {
+        .item {
+          grid-template-columns: 1fr;
+        }
+
+        .summary-list {
+          columns: 1;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>DLQ Console Delivery Checklist</h1>
+        <p class="lead">
+          Public-safe management summary for a controlled Dead Letter Queue support console.
+          This version intentionally removes organisation-specific hostnames, credentials, tenant identifiers,
+          internal repository paths and environment details.
+        </p>
+      </header>
+
+      <section class="notice">
+        <strong>Shareability note:</strong> this page is a desensitised checklist. It describes the delivery approach,
+        control themes and remaining work without exposing infrastructure-specific details.
+      </section>
+
+      <section class="grid" aria-label="summary">
+        <div class="card">
+          <h3>Objective</h3>
+          <p>
+            Provide a centrally hosted operational console for investigating, importing, querying,
+            replaying and administering DLQ messages in a controlled and audited way.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Target Model</h3>
+          <p>
+            Browser-based frontend, backend API trust boundary, managed database storage,
+            managed secrets and identity-based access control.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Control Position</h3>
+          <p>
+            No local message databases, no frontend-held infrastructure credentials,
+            role-based access, audit records and environment boundary checks.
+          </p>
+        </div>
+      </section>
+
+      <h2>Implemented Or Scaffolded</h2>
+      <section class="section">
+        <div class="item">
+          <div><span class="status done">Done</span>Architecture</div>
+          <div>
+            Backend API service separated from frontend concerns; frontend deployable as a separate static web service.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Access</div>
+          <div>
+            Identity validation, role-to-permission mapping and environment visibility filtering are implemented or scaffolded.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>DLQ Data</div>
+          <div>
+            Import run tracking, per-environment refresh, notes, backup registry and audit-table support have been added.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>SQL</div>
+          <div>
+            Read-only SQL validation, pagination, query auditing and canned investigation examples are implemented.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Operations</div>
+          <div>
+            DLQ import, broker-managed replay, delete routes, backup routes, full-payload viewing and notes routes have test coverage at route or integration level.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Containers</div>
+          <div>
+            Initial frontend and backend container scaffolds, reusable deployment chart shape, service-account support and internal-routing scaffolds are in place.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Safety</div>
+          <div>
+            Payloads are excluded from application logs; successful, failed and denied actions are audited where supported.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status done">Done</span>Testing</div>
+          <div>
+            Local integration harness, synthetic DLQ generator, SQL validation tests, role tests, environment-filtering tests and compatibility testing are in place.
+          </div>
+        </div>
+      </section>
+
+      <h2>Remaining Delivery Work</h2>
+      <section class="section">
+        <div class="item">
+          <div><span class="status todo">Todo</span>Code</div>
+          <div>
+            Replace any temporary helper/process execution with backend-owned broker integration code,
+            add bulk replay with a hard limit, saved SQL/report capability and final monitoring screens.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Access</div>
+          <div>
+            Complete production identity application registration, group setup, elevated-role configuration,
+            approval process and access-review process.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Database</div>
+          <div>
+            Confirm final database names, connection model, backup ownership, retention behaviour,
+            indexes and database access model.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Broker Access</div>
+          <div>
+            Validate backend network access to the required broker management and messaging endpoints from each target cluster.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Deployment</div>
+          <div>
+            Build and publish production container images, align deployment templates to the approved platform pattern,
+            configure managed secrets, and deploy to each target cluster.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Validation</div>
+          <div>
+            Complete identity login tests, deployed-cluster broker compatibility tests, large payload tests,
+            large DLQ import tests, SQL pagination tests and live/non-live separation tests.
+          </div>
+        </div>
+        <div class="item">
+          <div><span class="status todo">Todo</span>Documentation</div>
+          <div>
+            Produce user guide, production runbook, access-request process, environment-registry maintenance process,
+            support route and go-live communications.
+          </div>
+        </div>
+      </section>
+
+      <h2>Key Controls To Preserve</h2>
+      <section class="section">
+        <ul class="summary-list">
+          <li>Identity-based authentication only.</li>
+          <li>Backend-side authorisation for every action.</li>
+          <li>Separate permissions for read, operate and administer actions.</li>
+          <li>Elevated access for destructive actions.</li>
+          <li>Environment boundaries enforced by the backend.</li>
+          <li>Read-only SQL enforced server-side.</li>
+          <li>Audit successful, failed and denied actions.</li>
+          <li>No payload content in application logs.</li>
+          <li>No infrastructure credentials in the frontend.</li>
+          <li>No local unmanaged message database in the target state.</li>
+          <li>Operational data is not treated as long-term record retention.</li>
+          <li>Internal network exposure only.</li>
+        </ul>
+      </section>
+
+      <h2>Known Validation Risks</h2>
+      <section class="section">
+        <div class="item">
+          <div><span class="status risk">Risk</span>Payload Scale</div>
+          <div>Large payload handling and storage growth need performance validation before broad rollout.</div>
+        </div>
+        <div class="item">
+          <div><span class="status risk">Risk</span>Import Load</div>
+          <div>Import batch size, throttle values and query timeouts need tuning against real operational volumes.</div>
+        </div>
+        <div class="item">
+          <div><span class="status risk">Risk</span>Broker Versions</div>
+          <div>Compatibility must be validated against the broker versions and images used in target environments.</div>
+        </div>
+        <div class="item">
+          <div><span class="status risk">Risk</span>Access Model</div>
+          <div>Final user-to-database attribution and audit semantics must be agreed before production deployment.</div>
+        </div>
+      </section>
+
+      <footer>
+        <p>
+          Prepared as a desensitised public-facing delivery checklist. It intentionally excludes hostnames,
+          credentials, tenant IDs, group IDs, repository paths and environment-specific configuration.
+        </p>
+      </footer>
+    </main>
+  </body>
+</html>
